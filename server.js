@@ -32,7 +32,7 @@ app.get('/flowers/*', function(request, response) {
 
 // filter sightings
 app.get('/sightings/*', function(request, response) {
-	db.all('SELECT * FROM sightings, flowers WHERE comname = name AND comname LIKE \'%' + (request.url.substring(request.url.lastIndexOf('/') + 1)).replace(/%20/g, ' ') + '%\';', function(err, rows) {
+	db.all('SELECT * FROM sightings, flowers WHERE comname = name AND comname LIKE \'%' + (request.url.substring(request.url.lastIndexOf('/') + 1)).replace(/%20/g, ' ') + '%\' ORDER BY sighted DESC LIMIT 10;', function(err, rows) {
 		if(err) {
 			console.log("Error: " + err);
 		}
