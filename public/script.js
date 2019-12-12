@@ -1,4 +1,4 @@
-$("#submitSighting").click(function(){
+$("#submitSighting").click(function() {
 	comnameText = $("#flowerField").val();
 	memberText = $("#memberField").val();
 	locationText = $("#locationField").val();
@@ -22,6 +22,37 @@ $("#submitSighting").click(function(){
 	$("#locationField").val("");
 	$("#dateField").val("");
 
+	getFlowers();
+});
+
+$("#submitUpdate").click(function() {
+	newSpecies = $("#speciesField").val();
+	newGenus = $("#genusField").val();
+	newComname = $("#comnameField").val();
+
+	oldSpecies = $("#speciesField").attr("placeholder");
+	oldGenus = $("#genusField").attr("placeholder");
+	oldComname = $("#comnameField").attr("placeholder");
+
+
+		$.get("/update/" + oldSpecies + "-" + oldGenus + "-" + oldComname + "_" + newSpecies + "-" + newGenus + "-" + newComname, function(data) {
+
+		if(!data) {
+			//console.log("Sightings not found!");
+		}
+
+		for(var i = 0; i < data.length; i++) {
+			//console.log(data[i].NAME);
+		}
+		
+		//showSightings(data);
+	});
+
+	$("#speciesField").val("");
+	$("#genusField").val("");
+	$("#comnameField").val("");
+
+	getFlowers();
 });
 
 var filterText = '';
