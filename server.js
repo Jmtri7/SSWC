@@ -30,6 +30,18 @@ app.get('/flowers/*', function(request, response) {
 	});
 });
 
+// display all sightings
+app.get('/sightings/', function(request, response) {
+	db.all('SELECT * FROM sightings', function(err, rows) {
+		if(err) {
+			console.log("Error: " + err);
+		}
+		else {
+			response.send(rows);
+		}
+	});
+});
+
 // filter sightings
 app.get('/sightings/*', function(request, response) {
 	db.all('SELECT * FROM sightings, flowers WHERE comname = name AND comname LIKE \'%' + (request.url.substring(request.url.lastIndexOf('/') + 1)).replace(/%20/g, ' ') + '%\' ORDER BY sighted DESC LIMIT 10;', function(err, rows) {
@@ -42,16 +54,16 @@ app.get('/sightings/*', function(request, response) {
 	});
 });
 
+// insert a new sighting
 app.get('/insert/*', function(request, response) {
-	var cols = ((request.url.substring(request.url.lastIndexOf('/') + 1))).split("-");
-
-	db.run(`INSERT INTO flowers(genus,species,comname) VALUES(?,?,?)`, [cols[0], cols[1], cols[2]], function(err) {
+	var cols = ((request.url.substring(request.url.lastIndexOf('/') + 1))).split("_");
+	//console.log(cols[0]);
+	db.run(`INSERT INTO sightings(name,person,location,sighted) VALUES(?,?,?,?)`, [cols[0].replace(/%20/g, ' '), cols[1].replace(/%20/g, ' '), cols[2].replace(/%20/g, ' '), cols[3].replace(/%20/g, ' ')], function(err) {
 		if (err) {
 			return console.log(err.message);
 		}
-    // get the last insert id
-    console.log(`A row has been inserted with rowid ${this.lastID}`);
-});
+		console.log(`A row has been inserted with rowid ${this.lastID}`);
+	});
 });
 
 // home page fail safe

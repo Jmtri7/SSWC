@@ -23,15 +23,118 @@
 			<p class="lead">
 				“The earth laughs in flowers.”	―	Ralph Waldo Emerson 
 			</p>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+				Report Sighting
+			</button>
 		</div>
 	</div>
 
+	<!-- New Sighting Modal -->
 	<div class="container">
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">New Sighting Info</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group row">
+								<label for="flowerField" class="col-sm-2 col-form-label">Flower: </label>
+								<div class="col-sm-10">
+									<input class="form-control" id="flowerField" placeholder="Common Name">
+								</div>
+							</div>
+						</form>
+						<form>
+							<div class="form-group row">
+								<label for="memberField" class="col-sm-2 col-form-label">Member: </label>
+								<div class="col-sm-10">
+									<input class="form-control" id="memberField" placeholder="Member Name">
+								</div>
+							</div>
+						</form>
+						<form>
+							<div class="form-group row">
+								<label for="locationField" class="col-sm-2 col-form-label">Location: </label>
+								<div class="col-sm-10">
+									<input class="form-control" id="locationField" placeholder="Location">
+								</div>
+							</div>
+						</form>
+						<form>
+							<div class="form-group row">
+								<label for="dateField" class="col-sm-2 col-form-label">Date: </label>
+								<div class="col-sm-10">
+									<input class="form-control" id="dateField" placeholder="YYYY-MM-DD">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" id="submitSighting">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Update Flower Modal -->
+	<div class="container">
+		<div class="modal fade" id="flowerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Update Flower Info</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group row">
+								<label for="comnameField" class="col-sm-2 col-form-label">Name: </label>
+								<div class="col-sm-10">
+									<input class="form-control" id="comnameField" placeholder="Common Name">
+								</div>
+							</div>
+						</form>
+						<form>
+							<div class="form-group row">
+								<label for="genusField" class="col-sm-2 col-form-label">Genus: </label>
+								<div class="col-sm-10">
+									<input class="form-control" id="genusField" placeholder="Genus">
+								</div>
+							</div>
+						</form>
+						<form>
+							<div class="form-group row">
+								<label for="speciesField" class="col-sm-2 col-form-label">Species: </label>
+								<div class="col-sm-10">
+									<input class="form-control" id="speciesField" placeholder="Species">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" id="submitUpdate">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container spacer">
 		<form>
 			<div class="form-group row">
 				<label for="filterField" class="col-sm-2 col-form-label">Search Club Sightings: </label>
 				<div class="col-sm-10">
-					<input class="form-control" id="filterField" placeholder="Filter Text">
+					<input class="form-control" id="filterField" placeholder="Flower Name">
 				</div>
 			</div>
 		</form>

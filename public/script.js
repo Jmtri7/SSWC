@@ -1,3 +1,29 @@
+$("#submitSighting").click(function(){
+	comnameText = $("#flowerField").val();
+	memberText = $("#memberField").val();
+	locationText = $("#locationField").val();
+	dateText = $("#dateField").val();
+
+	$.get("/insert/" + comnameText + "_" + memberText + "_" + locationText + "_" + dateText, function(data) {
+
+		if(!data) {
+			//console.log("Sightings not found!");
+		}
+
+		for(var i = 0; i < data.length; i++) {
+			//console.log(data[i].NAME);
+		}
+		
+		//showSightings(data);
+	});
+
+	$("#flowerField").val("");
+	$("#memberField").val("");
+	$("#locationField").val("");
+	$("#dateField").val("");
+
+});
+
 var filterText = '';
 $("#filterField").keyup(function(){
 	filterText = $("#filterField").val();
@@ -132,16 +158,22 @@ function showFlowers(flowers) {
 		cardtext.className="card-text";
 		cardtext.innerHTML = flowers[i].GENUS + " " + flowers[i].SPECIES;
 
-		var cardbutton = document.createElement("a");
-		cardbutton.href="flowers/" + (flowers[i].COMNAME).replace(' ', "\%20");
-		cardbutton.className="btn btn-primary mt-auto";
-		cardbutton.innerHTML = "Pick Me";
+		//var cardbutton = document.createElement("a");
+		//cardbutton.href="flowers/" + (flowers[i].COMNAME).replace(' ', "\%20");
+		//cardbutton.className="btn btn-primary mt-auto";
+		//cardbutton.innerHTML = "Pick Me";
+
+		var updateButton = $("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#flowerModal\"></button>").text("Update");
+
 
 		card.appendChild(cardimg);
 		card.appendChild(cardbody);
 		cardbody.appendChild(cardtitle);
 		cardbody.appendChild(cardtext);
-		cardbody.appendChild(cardbutton);
+		//cardbody.appendChild(cardbutton);
+
+		cardbody.appendChild(updateButton[0]);
+
 		deck.appendChild(card);
 	}
 
@@ -160,8 +192,18 @@ function showFlowers(flowers) {
 	
 	$(".card").click(this, function() {
 		var comname = $(this).children(".card-body").children(".card-title").prop("innerHTML");
+		var binomial = $(this).children(".card-body").children(".card-text").prop("innerHTML");
+
 		$("#filterField").val(comname);
 		filterText = comname;
+
+		$("#comnameField").val("");
+		$("#comnameField").attr("placeholder", comname);
+		$("#genusField").val("");
+		$("#genusField").attr("placeholder", binomial.split(' ')[0]);
+		$("#speciesField").val("");
+		$("#speciesField").attr("placeholder", binomial.split(' ')[1]);
+
 		getFlowers();
 	});
 }
