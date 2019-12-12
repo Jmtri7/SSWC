@@ -25,6 +25,7 @@ function getSightings() {
 function showSightings(sightings) {
 
 	var sightingsTable = document.getElementById("sightingsTable");
+	var sightingsTable2 = document.getElementById("sightingsTable");
 
 	var table = document.createElement("table");
 	table.className="table table-striped";
@@ -69,6 +70,8 @@ function showSightings(sightings) {
 		tableRow.appendChild(rowLocation);
 		tableRow.appendChild(rowMember);
 	}
+
+	sightingsTable2.appendChild(table);
 }
 
 function getFlowers() {
@@ -89,6 +92,10 @@ function getFlowers() {
 		var sightingsTable = document.getElementById("sightingsTable");
 		$(sightingsTable).empty();
 
+		var infoCard = document.getElementById("infoCard");
+		$(infoCard).empty();
+
+
 		if(data.length == 0) {
 			var alert = document.createElement("div");
 			alert.className = "alert alert-secondary";
@@ -105,7 +112,9 @@ function showFlowers(flowers) {
 
 	var flowersSection = document.getElementById("flowers");
 
-	var decksize = 3;
+	if(flowers.length != 1) {
+
+var decksize = 3;
 	for(var i = 0; i < flowers.length; i++) {
 		if(i % decksize == 0) {
 			var deck = document.createElement("div");
@@ -145,9 +154,6 @@ function showFlowers(flowers) {
 		deck.appendChild(card);
 	}
 
-	if(flowers.length == 1) {
-		getSightings();
-	} else
 
 	if(flowers.length % decksize != 0) {
 		for(var i = 1; i <= decksize - (flowers.length % decksize); i++) {
@@ -164,4 +170,43 @@ function showFlowers(flowers) {
 		filterText = comname;
 		getFlowers();
 	});
+
+	} else {
+
+			var infoCard = document.getElementById("infoCard");
+
+
+
+var card = document.createElement("div");
+		card.className = "card";
+
+		var cardimg = document.createElement("img");
+		cardimg.className="card-img-top";
+		cardimg.src="img/flower.jpg";
+		cardimg.alt="Card image cap";
+
+		var cardbody = document.createElement("div");
+		cardbody.className="card-body d-flex flex-column";
+
+		var cardtitle = document.createElement("h5");
+		cardtitle.className="card-title";
+		cardtitle.innerHTML = flowers[0].COMNAME;
+
+		var cardtext = document.createElement("p");
+		cardtext.className="card-text";
+		cardtext.innerHTML = flowers[0].GENUS + " " + flowers[0].SPECIES;
+
+		var cardbutton = document.createElement("a");
+		cardbutton.href="flowers/" + (flowers[0].COMNAME).replace(' ', "\%20");
+		cardbutton.className="btn btn-primary mt-auto";
+		cardbutton.innerHTML = "Edit";
+
+		card.appendChild(cardimg);
+		card.appendChild(cardbody);
+		cardbody.appendChild(cardtitle);
+		cardbody.appendChild(cardtext);
+		cardbody.appendChild(cardbutton);
+		infoCard.appendChild(card);
+		getSightings();
+	}
 }
