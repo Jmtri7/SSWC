@@ -42,6 +42,18 @@ app.get('/sightings/*', function(request, response) {
 	});
 });
 
+app.get('/insert/*', function(request, response) {
+	var cols = ((request.url.substring(request.url.lastIndexOf('/') + 1))).split("-");
+
+	db.run(`INSERT INTO flowers(genus,species,comname) VALUES(?,?,?)`, [cols[0], cols[1], cols[2]], function(err) {
+		if (err) {
+			return console.log(err.message);
+		}
+    // get the last insert id
+    console.log(`A row has been inserted with rowid ${this.lastID}`);
+});
+});
+
 // home page fail safe
 app.get('/*', function(request, response) {
 	response.sendFile('public/app.html', {root: __dirname })
