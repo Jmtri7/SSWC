@@ -44,7 +44,16 @@ function getSightings() {
 			//console.log(data[i].NAME);
 		}
 		
-		showSightings(data);
+		if(data.length > 0) {
+			showSightings(data);
+		} else {
+			var sightingsTable = document.getElementById("sightingsTable");
+			var alert = document.createElement("div");
+			alert.className = "alert alert-secondary";
+			alert.role = "alert";
+			alert.innerHTML = "No sightings for this flower!"
+			sightingsTable.appendChild(alert);
+		}
 	});
 }
 

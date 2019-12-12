@@ -8,7 +8,7 @@ app.use(express.static(__dirname + '/public'));
 
 // display all flowers
 app.get('/flowers/', function(request, response) {
-	db.all('SELECT * FROM flowers', function(err, rows) {
+	db.all('SELECT * FROM flowers ORDER BY comname ASC', function(err, rows) {
 		if(err) {
 			console.log("Error: " + err);
 		}
@@ -20,7 +20,7 @@ app.get('/flowers/', function(request, response) {
 
 // filter flowers
 app.get('/flowers/*', function(request, response) {
-	db.all('SELECT * FROM flowers WHERE comname LIKE \'%' + (request.url.substring(request.url.lastIndexOf('/') + 1)).replace(/%20/g, ' ') + '%\';', function(err, rows) {
+	db.all('SELECT * FROM flowers WHERE comname LIKE \'%' + (request.url.substring(request.url.lastIndexOf('/') + 1)).replace(/%20/g, ' ') + '%\' ORDER BY comname ASC;', function(err, rows) {
 		if(err) {
 			console.log("Error: " + err);
 		}
@@ -64,6 +64,12 @@ app.get('/insert/*', function(request, response) {
 		}
 		console.log(`A row has been inserted with rowid ${this.lastID}`);
 	});
+});
+
+// update a flower
+app.get('/update/*', function(request, response) {
+	var cols = ((request.url.substring(request.url.lastIndexOf('/') + 1))).split("_");
+	console.log();
 });
 
 // home page fail safe
