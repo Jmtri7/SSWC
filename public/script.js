@@ -25,6 +25,7 @@ $("#submitSighting").click(function(){
 });
 
 var filterText = '';
+$("#filterField").val("");
 $("#filterField").keyup(function(){
 	filterText = $("#filterField").val();
 	getFlowers();
@@ -49,7 +50,7 @@ function getSightings() {
 		} else {
 			var sightingsTable = document.getElementById("sightingsTable");
 			var alert = document.createElement("div");
-			alert.className = "alert alert-secondary";
+			alert.className = "alert alert-secondary spacer";
 			alert.role = "alert";
 			alert.innerHTML = "No sightings for this flower!"
 			sightingsTable.appendChild(alert);
@@ -62,7 +63,7 @@ function showSightings(sightings) {
 	var sightingsTable = document.getElementById("sightingsTable");
 
 	var table = document.createElement("table");
-	table.className="table table-striped";
+	table.className="table table-striped spacer";
 	sightingsTable.appendChild(table);
 
 	var tableHead = document.createElement("thead");
@@ -126,7 +127,7 @@ function getFlowers() {
 
 		if(data.length == 0) {
 			var alert = document.createElement("div");
-			alert.className = "alert alert-secondary";
+			alert.className = "alert alert-secondary spacer";
 			alert.role = "alert";
 			alert.innerHTML = "Flower Not Found!"
 			flowersSection.appendChild(alert);
@@ -174,7 +175,6 @@ function showFlowers(flowers) {
 
 		var updateButton = $("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#flowerModal\"></button>").text("Update");
 
-
 		card.appendChild(cardimg);
 		card.appendChild(cardbody);
 		cardbody.appendChild(cardtitle);
@@ -186,7 +186,10 @@ function showFlowers(flowers) {
 		deck.appendChild(card);
 	}
 
+	flowersSection.className = "container";
+
 	if(flowers.length == 1) {
+		flowersSection.className = "col-sm";
 		getSightings();
 	} else
 
