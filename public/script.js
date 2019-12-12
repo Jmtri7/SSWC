@@ -52,6 +52,11 @@ $("#submitUpdate").click(function() {
 	$("#genusField").val("");
 	$("#comnameField").val("");
 
+	if(newComname != "") {
+		$("#filterField").val(newComname);
+		filterText = newComname;
+	}
+
 	getFlowers();
 });
 

@@ -71,7 +71,22 @@ app.get('/update/*', function(request, response) {
 	var rows = ((request.url.substring(request.url.lastIndexOf('/') + 1))).split("_");
 	var oldCol = rows[0].split("-");
 	var newCol = rows[1].split("-");
+	if(newCol[0] == "") {
+		newCol[0] = oldCol[0];
+	}
+	if(newCol[1] == "") {
+		newCol[1] = oldCol[1];
+	}
+	if(newCol[2] == "") {
+		newCol[2] = oldCol[2];
+	}
 	db.run(`UPDATE flowers SET comname = ?, genus = ?, species = ? WHERE comname = ?`, [newCol[2].replace(/%20/g, ' '), newCol[1].replace(/%20/g, ' '), newCol[0].replace(/%20/g, ' '), oldCol[2].replace(/%20/g, ' ')], function(err) {
+		if (err) {
+			return console.log(err.message);
+		}
+		console.log(`A row has been updated with rowid ${this.lastID}`);
+	});
+		db.run(`UPDATE sightings SET name = ? WHERE name = ?`, [ newCol[2].replace(/%20/g, ' '), oldCol[2].replace(/%20/g, ' ')], function(err) {
 		if (err) {
 			return console.log(err.message);
 		}
