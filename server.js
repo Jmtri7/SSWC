@@ -4,6 +4,8 @@ var app = express();
 var sqlite3 = require('sqlite3');
 var db = new sqlite3.Database('db/flowers2019.db');
 
+db.run('');
+
 app.use(express.static(__dirname + '/public'));
 
 // display all flowers
@@ -64,13 +66,13 @@ app.get('/insert/*', function(request, response) {
 		}
 		//console.log(`A row has been inserted with rowid ${this.lastID}`);
 	});
-	console.log(cols[0].replace(/%20/g, ' '));
+/*	console.log(cols[0].replace(/%20/g, ' '));
 		db.run(`INSERT INTO flowers(comname) VALUES(?);`, [cols[0].replace(/%20/g, ' ')], function(err) {
 		if (err) {
 			return console.log(err.message);
 		}
 		//console.log(`A row has been inserted with rowid ${this.lastID}`);
-	});
+	});*/
 });
 
 // update a flower
@@ -93,7 +95,7 @@ app.get('/update/*', function(request, response) {
 		}
 		//console.log(`A row has been updated with rowid ${this.lastID}`);
 	});
-		db.run(`UPDATE sightings SET name = ? WHERE name = ?`, [ newCol[2].replace(/%20/g, ' '), oldCol[2].replace(/%20/g, ' ')], function(err) {
+	db.run(`UPDATE sightings SET name = ? WHERE name = ?`, [ newCol[2].replace(/%20/g, ' '), oldCol[2].replace(/%20/g, ' ')], function(err) {
 		if (err) {
 			return console.log(err.message);
 		}
