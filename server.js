@@ -62,7 +62,14 @@ app.get('/insert/*', function(request, response) {
 		if (err) {
 			return console.log(err.message);
 		}
-		console.log(`A row has been inserted with rowid ${this.lastID}`);
+		//console.log(`A row has been inserted with rowid ${this.lastID}`);
+	});
+	console.log(cols[0].replace(/%20/g, ' '));
+		db.run(`INSERT INTO flowers(comname) VALUES(?);`, [cols[0].replace(/%20/g, ' ')], function(err) {
+		if (err) {
+			return console.log(err.message);
+		}
+		//console.log(`A row has been inserted with rowid ${this.lastID}`);
 	});
 });
 
@@ -84,13 +91,13 @@ app.get('/update/*', function(request, response) {
 		if (err) {
 			return console.log(err.message);
 		}
-		console.log(`A row has been updated with rowid ${this.lastID}`);
+		//console.log(`A row has been updated with rowid ${this.lastID}`);
 	});
 		db.run(`UPDATE sightings SET name = ? WHERE name = ?`, [ newCol[2].replace(/%20/g, ' '), oldCol[2].replace(/%20/g, ' ')], function(err) {
 		if (err) {
 			return console.log(err.message);
 		}
-		console.log(`A row has been updated with rowid ${this.lastID}`);
+		//console.log(`A row has been updated with rowid ${this.lastID}`);
 	});
 });
 
