@@ -4,8 +4,6 @@ var app = express();
 var sqlite3 = require('sqlite3');
 var db = new sqlite3.Database('db/flowers2019.db');
 
-db.run('');
-
 app.use(express.static(__dirname + '/public'));
 
 // display all flowers
